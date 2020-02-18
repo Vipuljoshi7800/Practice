@@ -25,7 +25,7 @@ def index(request):
     context={
         'latest_question_list':latest_question_list
     }
-    return render(request,'index.html',{'context':context})
+    return render(request,'index.html',{'context':context,'latest_question_list':latest_question_list})
 
 def page_not_found(request,question_id):
     try:
@@ -38,7 +38,6 @@ def page_not_found(request,question_id):
 # def detail(request, question_id):
 #     question = get_object_or_404(Question, pk=question_id)
 #     return render(request, 'detail.html', {'question': question})
-
 
 def detail(request, question_id):
     try:
@@ -75,21 +74,9 @@ class Message(APIView):
         print("this is posst method")
         return Response(data="this is class base views POST()",status=status.HTTP_200_OK)
     
-    def put(self,request):
-        print("this is put method")
-        return Response(data="this is class base views Put()",status=status.HTTP_200_OK)
-    
-    def delete(self,request):
-        print("this is delete method")
-        return Response(data="this is class base views Delete()",status=status.HTTP_200_OK)
-    
-    def patch(self,request):
-        print("this is patch method")
-        return Response(data="this is class base views patch()",status=status.HTTP_200_OK)
-    
-
-    def update(self,request):
-        print("this is update method")
-        return Response(data="this is class base views update()",status=status.HTTP_200_OK)
-    
-    
+def listLitrate(request):
+    """
+    Return a list of all users.
+    """
+    usernames = [user.username for user in User.objects.all()]
+    return HttpResponse(usernames)
